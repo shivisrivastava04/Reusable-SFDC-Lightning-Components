@@ -1,0 +1,35 @@
+<aura:component controller="singleSelectController">
+    <aura:attribute name="SearchKeyWord" type="string" default=""/>
+    <aura:attribute name="listOfSearchRecords" type="List"/>
+    <aura:attribute name="oRecord" type="sObject" />
+    <aura:attribute name="edit" type="Boolean" default="false"/>
+    <aura:attribute name="objectAPI" type="String" />
+    <aura:handler name="init" action="{!c.doInit}" value="{!this}"/>
+	<ltng:require scripts="/resource/ATE_JQueryLib/" afterScriptsLoaded="{!c.afterScriptsLoad}"/>
+    
+    <div aura:id="mainDiv" class="slds-lookup class1" data-select="single">
+        <div class="slds-form-element">
+            <label class="slds-form-element__label">Contacts</label>
+            <div class="slds-form-element__control" id="input-1-1">
+                <button id="Hello" class="slds-button">
+                    <lightning:icon id="icon-1" onclick="{!c.hello}" class="slds button slds-show" iconName="utility:search" size="x-small" alternativeText="search"/>   
+                </button>
+                <ui:inputText click="{!c.onfocus}" updateOn="keyup" keyup="{!c.keyPressController}" aura:id="text-11" class="slds-input leftPaddingClass text-1" value="{!v.SearchKeyWord}" placeholder="search.."/>
+                <!--<input type="text" onkeyup ="{!c.hello}" onclick="{!c.onfocus}" id="text-1" aura:id="text-11" class="slds-input leftPaddingClass" placeholder="search.." value="{!v.SearchKeyWord}"/>-->
+            </div>
+        </div>
+        <div aura:id="aura3" class="slds-listbox" id="dropdown-1">
+        <ul class="slds-listbox slds-listbox_vertical slds-dropdown slds-dropdown_fluid slds">
+            <aura:iteration items="{!v.listOfSearchRecords}" var="singleRec">
+                <!-- {!singleRec.Name}-->
+                <li role="presentation" id="list-65" class="slds-listbox__item"  onclick="{!c.selectRecord}">
+                    <span id="listbox-option-unique-id-01" class="slds-media slds-listbox__option slds-listbox__option_entity slds-listbox__option_has-meta" data-value="{!singleRec.Name}" role="option">
+                        <span class="slds-listbox__option-text slds-listbox__option-text_entity" data-num="{!singleRec.Id}" data-value="{!singleRec.Name}">{!singleRec.Name}
+                        </span>
+                    </span>
+                </li>
+            </aura:iteration>
+        </ul>
+        </div>
+    </div>
+</aura:component>
